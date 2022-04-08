@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
 import Featured from '../components/Featured'
@@ -6,7 +7,7 @@ import PizzaList from '../components/PizzaList'
 
 
 
-const Home = () => {
+const Home = ({ pizzalist }) => {
   return (
     <div className="">
       <Head>
@@ -16,9 +17,19 @@ const Home = () => {
       {/* <Featured/> */}
       {/* <Featured2/> */}
       {/* <Featured  /> */}
-      <PizzaList/>
+      <PizzaList pizzalist={pizzalist} />
     </div>
   )
+}
+
+export const getServerSideProps = async () => {
+  const res = await axios.get("http://localhost:3000/api/products")
+
+  return {
+    props: {
+      pizzalist: res.data,
+    }
+  }
 }
 
 export default Home

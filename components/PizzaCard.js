@@ -1,14 +1,17 @@
 import React from 'react'
 import Image from "next/image"
+import Link from 'next/link'
 
-
-const PizzaCard = () => {
+const PizzaCard = ({ data }) => {
   return (
     <div className='cursor-pointer' >
-        <Image src="/Images/product2.jpg" alt='Za' width="500" height="500"/>
-        <h1 className='text-xl font-bold text-red-600'> Peperoni Zaa </h1>
-        <p className='font-bold text-gray-600'>$19.90</p>
-        <p className='text-gray-600'>aadasd s as asd asd sad asd asd ssad sadas asd </p>
+      <Link href={`/product/${data._id}`} passHref>
+        <Image src={data.img} alt='Za' width="500" height="500" />
+      </Link>
+
+      <h1 className='text-xl font-bold text-red-600'>{data.title}</h1>
+      <p className='font-bold text-gray-600'>${data.prices[0]}</p>
+      <p className='text-gray-600'>{data.desc}</p>
     </div>
   )
 }
