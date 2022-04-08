@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { PhoneIcon } from '@heroicons/react/outline'
+import axios from 'axios'
 
 
-const Product = () => {
+const Product = ({ pizza }) => {
   const [size, setSize] = useState(0)
-  const pizza = {
-    id: 1,
-    img: '/Images/Zep.png',
-    name: 'Zaa',
-    price: [19.9, 23.9, 27.9],
-    desc: 'sfsd dsfdsfs df dsf sdf sdfsdf fsdf  sf ',
-  }
+ 
   return (
     <div className="flex" style={{ height: '70vh' }}>
       <div className="relative h-full flex-1 items-center justify-center">
@@ -22,7 +17,7 @@ const Product = () => {
       <div className="m-auto ml-36 flex-1 ">
         <p className="pb-3 text-3xl font-bold">{pizza.name}</p>
         <span className="pb-10 text-lg font-semibold text-red-600 underline">
-          ${pizza.price[size]}
+          ${pizza.prices[size]}
         </span>
         <p className="font-semibold text-gray-700">{pizza.desc}</p>
         <p className="pt-5 text-lg font-bold">Choose size</p>
@@ -76,5 +71,16 @@ const Product = () => {
     </div>
   )
 }
-// 1:01
+
+export const getServerSideProps = async ({params}) => {
+  const res = await axios.get(`http://localhost:3000/api/products/${params.id}`)
+
+  return {
+    props: {
+      pizza: res.data,
+    }
+  }
+}
+
+
 export default Product
