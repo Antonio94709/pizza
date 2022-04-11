@@ -1,14 +1,17 @@
 import React from 'react'
 import Image from "next/image"
 import { useDispatch,useSelector } from 'react-redux'
+import Paypal from "../components/Paypal"
+
 
 
 const Cart = () => {
   const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart)
   return (
     <div className='flex p-10'>
       <div className='' style={{ flex: "2" }}>
-        <table className='w-full text-center'>
+        <table className='w-full text-cente r'>
           <tr>
             <th >Product</th>
             <th>Name</th>
@@ -17,38 +20,42 @@ const Cart = () => {
             <th>Quantity</th>
             <th>Total</th>
           </tr>
-          <tr>
+          {cart.products.map((data) => (
+          <tr key={data._id}>
             <td>
               <div>
-                <Image src="/Images/Zep.png" alt="zaa" height="50" width="50" />
+                <Image src={data.img} alt="zaa" height="50" width="50" />
               </div>
             </td>
             <td>
               <span className='font-medium text-red-600 '>
-                Coralzo
+                {data.title}
               </span>
             </td>
             <td>
               <span>
-                Double , ingredient, spicy sauce
+                {data.extra.map(extra => (
+                  <span key={extra._id}>{extra.text}</span>
+                ))}
               </span>
             </td>
             <td>
               <span>
-                $19.99
+                ${data.price}
               </span>
             </td>
             <td>
               <span>
-                2
+                {data.quantity}
               </span>
             </td>
             <td>
               <span className='font-medium'>
-                $39.80
+                ${data.price * data.quantity}
               </span>
             </td>
           </tr>
+          ))}
         </table>
       </div>
       <div className='flex-1'>
@@ -64,6 +71,7 @@ const Cart = () => {
             <b>Total:</b>$79.60
           </div>
           <button className='uppercase bg-white text-red-600 font-bold'>Checkout now!</button>
+          <Paypal/>
         </div>
       </div>
     </div>
@@ -71,3 +79,5 @@ const Cart = () => {
 }
 
 export default Cart
+
+// 1.05
