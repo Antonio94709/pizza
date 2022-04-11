@@ -1,8 +1,11 @@
 import React from 'react'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { PhoneIcon } from '@heroicons/react/outline'
+import { useSelector } from 'react-redux'
+import Link from 'next/link'
 
 const Navbar = () => {
+  const quantity = useSelector(state => state.cart.quantity)
   return (
     <div className="flex  h-24 justify-between bg-red-600 px-10 text-center">
       <div className="flex items-center text-center ">
@@ -26,12 +29,14 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="">
-        <div className=" mt-8 h-4 w-7">
+        <Link href="/Cart" passHref>
+        <div className=" mt-8 h-4 w-7" >
           <ShoppingCartIcon className="text-white" />
           <div className="absolute mt-3 top-1.5 right-8 w-5 rounded-lg bg-white  text-sm font-bold text-red-500">
-            2
-          </div>
+            {quantity}
+          </div>         
         </div>
+        </Link>
       </div>
     </div>
   )

@@ -1,7 +1,10 @@
 import React from 'react'
 import Image from "next/image"
+import { useDispatch,useSelector } from 'react-redux'
+
 
 const Cart = () => {
+  const dispatch = useDispatch()
   return (
     <div className='flex p-10'>
       <div className='' style={{ flex: "2" }}>

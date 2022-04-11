@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { PhoneIcon } from '@heroicons/react/outline'
 import axios from 'axios'
-
+import { useDispatch } from 'react-redux'
+import { addProduct } from "../../redux/cartSlice"
 
 const Product = ({ pizza }) => {
   console.log(pizza);
@@ -10,6 +11,13 @@ const Product = ({ pizza }) => {
   const [extra, setExtra] = useState([])
   const [size, setSize] = useState(0)
   const [price, setPrize] = useState(pizza.prices[0])
+
+
+const dispatch = useDispatch()
+
+const handelClick = () => {
+  dispatch(addProduct({...pizza ,extra,price,quantity}))
+}
 
   const changePrice = (number) => {
     setPrize(price + number)
@@ -79,7 +87,7 @@ const Product = ({ pizza }) => {
           </div>
           <div className='flex mt-5 '>
             <input type='number' defaultValue={1} className=" bg-gray-300 rounded w-10 h-8" onChange={(e) => setQuantity(e.target.value)} />
-            <button className='h-8 text-center text-white ml-2 bg-red-600 p-1 rounded'>Add to cart</button>
+            <button className='h-8 text-center text-white ml-2 bg-red-600 p-1 rounded' onClick={handelClick}>Add to cart</button>
           </div>
         </div>
       </div>
