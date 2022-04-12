@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useState } from "react";
 import {
     PayPalScriptProvider,
     PayPalButtons,
@@ -52,8 +53,8 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
                         });
                 }}
                 onApprove={function (data, actions) {
-                    return actions.order.capture().then(function () {
-                        // Your code here after capture the order
+                    return actions.order.capture().then(function (details) {
+                       console.log(details);
                     });
                 }}
             />
@@ -66,7 +67,7 @@ export default function App() {
 		<div className="" style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider
                 options={{
-                    "client-id": "test",
+                    "client-id": "AZywdrfLMrh2abqvebTsdB7PdcobqAFZ65ZqCMig5mF4qyrbbxLwuLwlfs_nvLJFEqJM2Vtn2rkHn2Fu",
                     components: "buttons",
                     currency: "USD",
                     "disable-funding":"credit,card,p24"
